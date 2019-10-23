@@ -1,0 +1,68 @@
+Module Contents - Week 1-6:
+	- Introduction:
+		- Philosophy, examples, contents.
+
+	- Images:
+		- Digitization, Colour models, Noise & Smoothing.
+
+	- Histograms
+	
+	- Binary Image Processing
+	
+	- Region Segmentation:
+		- Connected Components, K-Means, Mean Shift, Watershed.
+
+	- Edges:
+		- 1st Derivative, Canny, Contour Following.
+		- Hough, RANSAC
+
+	- Geometric Transformation
+
+	- Learning & Evaluation:
+		- Unsupervised vs Supervised, Ground Truth, Metrics, Testing.
+
+	- Recognition (Part I):
+		- Template and Chamfer Matching.
+
+*** GO OVER ALL ABOVE BEFORE END OF READING WEEK ***
+
+Module Contents - Coursework:
+	- Exam 80%, Coursework 20%
+
+	- Weeks 2-4:
+		- Intro Assignment
+		- Not graded, for experience with OpenCV
+
+	- Weeks 4/5-9:
+		- Assignment (Implementation & Assessment) based on weeks 1-6
+		- Detailed report
+		- Counts for 80% of coursework
+
+	- Weeks 9-11:
+		- Assignment in style of exam question
+		- Counts for 20% of coursework
+		- Provides feedback on what is expected in exam.
+
+*** TRY TO GET A START ON ABOVE BEFORE END OF READING WEEK ***
+
+Module Contents - Week 8-12:
+	- Region Segmentation (Part II):
+		- Mean shift, watershed
+
+	- Video:
+		- Background models (Static, Median, GMM)
+		- Mean shift, Optical Flow
+
+	- Features:
+		- Morovec, Harris
+		- SIFT
+
+	- Recognition (Part II):
+		- Principal Component Analysis (PCA)
+		- Robust Oject Recognition (Boosting)
+
+	- Deep Learning:
+		- Examples of Computer Vision Deep Learning systems.
+
+	- 3D Vision:
+		- Stereo

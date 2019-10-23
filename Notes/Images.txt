@@ -1,0 +1,169 @@
+--- Images ---
+
+- Camera Models:
+	- Components:
+		- Photosensitive image plane
+		- Housing
+		- Lenses
+
+	- Mathematical model needed. (e.g. for simple pinhole camera model & distortions)
+
+	- Simple Pinhole Model:
+		[i.w]   [fi 0 ci][x]
+		[j.w] = [0 fj cj][y]
+		[ w ]   [0  0  1][z]
+
+		- 3-D point
+		- 2-D image point
+		- Scaling factor
+		- Combination of focal length and image coordinate system
+		- Location of the optical centre
+
+
+- Digital Images
+	- Theoretically, images are continuous 2D functions of reflected scene brightness.
+		- (i, j) or (column, row) or (x, y)
+
+	- To process on a computer, we need a discrete representation.
+		- Sample:
+		  Sampling the continuous 2D function into discrete elements.
+		  	- Sensor:
+			  - 2D array, photosensitive elements, non photosensitive gaps.
+			  - Issues: Elements have a fixed area & gaps.
+
+		  	- How many samples do we need?
+			  - Wasted space & consumption time.
+			  - Enough for the objects of interest.
+			  - ** code here (resize) **
+
+		- Quantise:
+		  Represenet the individual image points as digital values.
+		  Typically 8 bits.
+		  	- How many bits do we need?
+			  - Wasted space?
+			  - Losing ability to distinguish objects.
+			  - ** code here (Change quantisation grey) **
+
+- Colour Images
+	- Luminance Only
+	  - Simple representation.
+	  - Humans can understand
+
+	- Colour Images (Luminance & Chrominance)
+	  - Multiple channels (typically 3)
+	  - ~16.8 million colours
+	  - More complex to process
+	  - Facilitate certain operations
+	  - ** code here (invert colour) **
+
+	- RGB Images
+	  - Most Common
+	  - Channels correspond approx to:
+	    - Red:    700nm
+	    - Green:  546nm
+	    - Blue:   436nm
+	  - Colour combined in display (Colour and some greyscales)
+	  - Converting to Greyscal:
+	    - Y = 0.299R + 0.587G + 0.114B
+	  - Camera photosensitive elements:
+	    - Seperate R, G, and B elements.
+	    - Sometimes visible to all visible wavelengths.
+	    - Bayer Pattern:
+		R G R G R G
+		G B G B G B
+		R G R G R G
+		G B G B G B
+	  - ** code here (?) **
+	  - *****Don't forget in opencv images are in BGR and not RGB******
+
+	  - CMY Images
+	    - Cyan - Magenta - Yellow images
+	    - Secondary Colours
+	    - Subtractive-colour scheme
+		C = 255 - R
+		M = 255 - G
+		Y = 255 - B
+	    - Often used in printers
+	    - Not directly supported in OpenCV
+
+	  - YUV Images
+	    - Used for analogue TV signals.
+	    - Conversion from RGB:
+		Y = 0.299R + 0.587G + 0.114B
+		U = 0.492 * (B-Y)
+		V = 0.877 * (R-Y)
+
+	  - HLS Images
+	    - Hue - Luminance - Saturation
+	    - Seperates Luminance & Chrominance.
+	    - Values humans can relate to...
+		Hue: 0 ... 360
+		Luminance: 0 ... 1
+		Saturation: 0 ... 1
+	    - Watch out for circular hue.
+	    - Converstion from RGB is in slides...
+	    - ** code here (evtColor ?) **
+	    - Hue ranges from 0 - 179 in OpenCV
+
+	  - Other colour spaces:
+	    - HSV
+	    - YCrCb
+	    - CIE XYZ
+	    - CIE L*u*v*
+	    - CIE L*a*b*
+	    - Bayer
+
+- Noise
+	- Affects most images
+
+	- Degrades the image
+	
+	- Causes problems with processing
+	
+	- What are the causes?
+
+	- Measuring noise:
+	  - S/N ration = sumof(i,j)[f^2(i,j)] / sumof(i,j)[v^2(i,j)]
+
+	- How can we correct noise?
+
+	- Types of noise:
+	  - Gaussian
+	    - Good approximation to real noise.
+	    - Distribution is gaussian.
+
+	  - Salt & Pepper
+	    - Impulse noise
+	    - Noise is max or min values.
+	
+
+- Smoothing
+	- Removing or reducing noise.
+
+	- Linear & non-linear transformations.
+
+	- Averaging filters (linear)
+	  - Linear transformation (convolution)
+	  - Local neighbourhood
+	    - Different masks (Local average, gaussian)
+	  - Supression of small image noise, blurring of edges.
+
+	- Median filter (non-linear)
+	  - Use the median value...
+	  - Not affected by noise. 
+	  - Doesn't blur edges much.
+	  - Can be applied iteratively.
+	  - Damages thin lines and sharp corners. (Changes region shape)
+	  - Computationally expensive
+	    - Standard: O(r^2 log r)
+	    - Huang: O(r)
+	    - Perreault: O(1)
+
+
+- Image Pyramids
+	- To process images at multiple scales efficiently.
+
+	- Technique:
+	  - Smooth image (often gaussian)
+	  - Subsample (usually by a factor of 2)
+	  - ** code here (pyrDown) **
