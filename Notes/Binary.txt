@@ -1,0 +1,97 @@
+Binary
+
+- Thresholding
+	- Binary Thresholding
+	  - Simple Scenes?
+	  - LUT
+	  - Objects of interest vs Background
+	  - ** code here (threshold) **
+
+	- Distinct foreground and background needed for thresholding.
+
+	- How do we determine the best threshold?
+
+
+- Threshold detection
+	- Manual setting
+	  - Issue of changing lighting
+
+	- Need to determine automatically.
+	
+	- For the techniques that follow:
+	  - Image: f(i,j)
+	  - Histogram: h(g)
+	  - Prob Distribution: p(g) = h(g) / sumof(g)[h(g)]
+
+	- Otsu Thresholding
+	  - Minimize the spread of the pixels...
+	    - Smallest within class variance.
+	    - ** Some formulae.. **
+	    - Largest between class variance. 
+	  - ** Some cofe here (otsu thresh) **
+
+
+- Variations
+	- Adaptive thresholding
+	  - Method:
+	    1. Divide image into sub-images
+	    2. Compute threshold for all sub-images
+	    3. Interpolate thresholds for every point using bilinear interpolation.
+	  - ** code here (adaptive thresh) **
+
+	- Multi-Spectral Thresholding
+	
+
+- Cleaning Binary Images	  
+	- Cannot use normal smoothing operations
+	
+	- Need to remove noisy points and smooth binary region boundaries
+	
+	- Mostly use operations defined as part of 'mathematical morphology'
+	  - Treats images as sets.
+
+	- Most common operations:
+	  - Erosion
+	  - Dilation
+	  - Opening 
+	  - Closing	
+
+
+- Mathematical Morphology
+	- Dilation
+	  - Minkowski set addition:
+	    - X xor B = { p elemof .... look at notes}
+	    - B is the structuring element
+	    - B is typicaly isotropic
+
+	  - Adds pixels around borders
+	
+	  - Effects: 
+	    - Makes 'regions' bigger
+	    - Fills small holes
+	    - Joins close 'regions'
+
+	- Erosion
+	  - Minkowski set subtraction
+	    - X .... check notes
+	    - Again, B is typically isotropic
+
+	  - Removes border pixels.
+
+	  - Effects:
+	    - Makes 'regions' smaller
+	    - Removes noise
+	    - Removes narrow bridges
+
+	- Opening
+	  - Removes noise
+	  - Removes narrow bridges
+	  - Maintains 'region' size
+	  - Smooths shape
+
+	- Closing
+	  - Fills small holes
+	  - Joins close 'regions'
+	  - Maintains 'region' size
+
+	- ** some code (dilate, erode, etc..) **
