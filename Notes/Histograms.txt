@@ -1,0 +1,84 @@
+Histograms
+
+- 1D Histograms
+	- Determine frequency of brightness values
+	  - Initialise h(z) = 0 for all values of z
+	  - For all pixels (i,j): h(f(i,j))++
+	  - Would this be useful?
+	  - ** code here (greyscale histogram) **
+	
+	- Smoothing
+	  - Local minima & maxima are useful.
+	  - How can we deal with noise?
+	    - Smoothing the histogram. 
+	      - For all values v: h_new(v): (h(v-1), + h(v) + h(v+1)) / 3
+	    - What do we do at the ends? Don't compute, wraparound, etc.
+	  - ** code here (smoothing histogram) **
+	
+	- Determine histograms for each channel independently.
+	
+	- Choice of colour space.
+
+	- ** code here (colour histogram) **
+
+- 3D Histograms
+	- Channels are not independent.
+
+	- Better discrimination from considering all channels simultaneously.
+
+	- Number of cells? 8 bits = 16,777,216
+
+	- Reduce quantisation...
+	  - 6 bits = 262,144
+	  - 4 bits = 4096
+	  - 2 bits = 62
+
+	- ** code here (3d hist) **
+
+- Equalisation
+	- If an image has insufficient contrast.
+	
+	- Humans can distinguish 700-900 greyscales
+
+	- Evenly distribute the greyscales.. result has missing greyscales
+
+	- Normally equalise only the greyscales / luminance
+
+	- ** code here (?) **
+
+	- ** code here (some functions) **
+
+
+- Histogram Comparison
+	- To find similar images
+	  - Use metadata
+	  - Compare images
+
+	- Compare colour distributions
+
+	- Need a metric for comparisons.
+
+	- ** some metric formulae.. **
+
+	- Alternative to metrics is to computer the 'Earth Mover's Distance'
+	  - Min cost for turning a distribution into another distribution
+	  - Compare images.
+	  - 1D Solution...
+	  - Colour EMD is harder to compute
+	  - ** code here (histogram comparison) **
+
+
+
+- Back Projection
+	- Better approach to selecting colours.
+
+	- Method:
+	  1. Obtain a representative sample set of the colours.
+	  2. Histogram those samples.
+	  3. Normalize that histogram (max value is 1)
+	  4. Back project the normalized histogram onto any image f(i,j)
+	  5. Will provide a probability image p(i,j) which indicates the similarity between
+	     f(i,j) and the sample set. 
+
+	- ** code here (hist back projection) **
+
