@@ -1,0 +1,110 @@
+Region Segmentation
+
+- Binary Regions
+	- Segmentation
+	  - Splitting images into smaller parts
+	  - Two main approaches; region based, edge based.
+	  - Video segmentation; breaking video into clips, segmenting objects over time.
+
+	- Connectivity Paradoxes
+	  - Use pixel adjacency to build contiguous regions (object, background, holes)
+	  - Have to use either 4 or 8 adjacency.. label each non-zero pixel.
+	  - What do we actually want? 
+	  - Search image row by row..
+	    1. Label each non-zero pixel
+	    2. If previous pixels are all background, assign new label.
+	    3. Else
+		3.1 pick any label from the prev pixels.
+		3.2 if any other prev pixels have a diff label, note equivelance.
+	    4. Relabel equivalent labels. 
+	  - ** some code (?) ** 
+
+- K Means Clustering
+	- We want to:
+	  - Identify significant colour in images.. (concise descriptions, object tracking)
+	  - Reduce number of colours in any image.. (compression)
+
+	- How do we find the best colours?
+
+	- K Means Clustering:
+	  - Creates k clusters of pixels
+	  - Unsupervised learning. 
+	
+	- Method:
+	  1. No. of clusters is known in advance (k).
+	  2. Initialise the k cluster exemplars either randomly or use the first k patterns or..
+	  3. 1st pass: Allocate patterns to the closest existing cluster exemplar and recompute
+	     the exemplar as the centre of gravity.
+	  4. 2nd pass: Using the final exemplars from the first pass, allocate all patterns cluster
+		exemplars.
+
+	- Choosing the best number of exemplars..
+	  - Evaluate resulting clusters.
+	  - Davies-Bouldin index measures cluster separation.
+	  - Check distributions are normal.
+
+	- Using random exemplars give non-deterministic result.
+
+	- ** code here (k means clustering) **
+
+- Watershed Segmentation
+	- In computer vision, we:
+	  1. Identify all minima
+	  2. Label as different regions.
+	  3. Flood from the minima extending the regions
+	  4. Where regions meet we have watershed lines.
+
+	- Minimm what?
+	  - Greyscale, Gradient, Inverse of the chamfer distance. 
+
+	- Generally we get too many regions.
+	  - Use a priori labels to identiy 'objects' and expand from these rather than the minima.
+
+- Mean Shift Segmentation
+	- K-Means Clustering requires the num of clusters to be known & takes no account of 
+	  spatial location.
+
+	- Mean Shift Segmentation:
+	  - Do not need to know num of clusters.
+	  - Can provide spatial as well as colour segmentation. 
+
+	- Goal is to associate each point with a particular high-density cluster/mode in colour 
+	  space.
+
+	- Move particles in the direction of the local increasing density. 
+
+	- Kernel Density Estimation. 
+	  - Problem: Given a sparse dataset determine an estimate of density at each point.
+	  - Effectively: Smooth all data samples & add them all together. 
+	  - ** some formulae here **
+
+	- Many different kernels. 
+	
+	- Kernel function must integrate to 1. 
+
+	- Typically use either uniform or gaussian. 
+
+	- Method:
+	  - For each pixel (particle)
+	    1. Estimate local kernel density and direction of local increasing density. 
+	    2. Shift the particle to the new mean.
+	    3. Re-Compute until the location stabilises. 
+	  - Identify which pixels ended up in the same location.
+	    - Mark these as members of the same cluster.
+	    - Determine local mean of similar pixels. 
+
+	- We limit the points included in the kernel density estimate based on distance and on
+	  similarity to the current point.
+	  - ** formula here **
+	  - Must use both spacial and colour kernel.
+	  - Both can be gaussian.
+	  - Spatial kernel limits the region to consider around the current point. 
+	  - Colour kernel limits the colour of the points to be included in the mean. 
+
+	- ** lots of formulae here **
+
+	- Pros and Cons:
+	  - Do not need to know the number of clusters a priori
+	  - Provides spatial as well as colour segmentation. 
+	  - Selection of kernel widths can be very hard.
+	  - It is quite slow particularly if there are a lot of clusters. 
