@@ -1,4 +1,4 @@
-Region Segmentation is cool
+Region Segmentation
 
 - Binary Regions
 	- Segmentation
